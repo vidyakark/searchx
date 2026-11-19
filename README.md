@@ -1,5 +1,7 @@
 # searchx
 
+![CI](https://github.com/vidyakark/searchx/actions/workflows/ci.yml/badge.svg)
+
 A from-scratch full-text search engine in C++17 — compressed inverted index, BM25 ranking,
 boolean and phrase queries, a multi-threaded HTTP server, and a web UI. No external dependencies.
 
