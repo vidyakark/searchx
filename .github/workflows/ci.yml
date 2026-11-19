@@ -1,0 +1,21 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: make -j2
+      - name: Unit tests
+        run: make test
+      - name: Sanitizer build (ASan + UBSan)
+        run: |
+          g++ -std=c++17 -O1 -g -fsanitize=address,undefined -Iinclude \
+            src/tokenizer.cpp src/index.cpp src/query.cpp src/engine.cpp tests/test_main.cpp \
+            -o test_asan -pthread
+          ./test_asan
+      - name: Smoke-test index + search
+        run: |
+          ./build/searchx index data/sample.tsv sample.idx 1
+          ./build/searchx search sample.idx '"phrase queries"' 1

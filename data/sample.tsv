@@ -1,0 +1,12 @@
+Inverted index	An inverted index maps each term to the list of documents that contain it. Search engines use inverted indexes so that a query only touches the postings of the words it mentions instead of scanning every document.
+BM25 ranking	BM25 is a ranking function that scores documents by term frequency, inverse document frequency and document length normalization. It is the default relevance model in many search engines.
+Skip pointers	Skip pointers let a search engine jump over blocks of a posting list while intersecting lists. This makes multi-word AND queries much faster when one term is rare and another is very common.
+Variable byte encoding	Variable byte encoding stores small integers in fewer bytes. Posting lists store gaps between document ids, which are small numbers, so compression shrinks the index and improves cache behaviour.
+Phrase queries	A phrase query such as "quick brown fox" requires the words to appear next to each other. Engines answer it by storing word positions in the postings and checking that positions line up.
+Stemming	Stemming reduces words like searching, searches and searched to a common root so that a query for one form also matches the others.
+Memory mapped files	Memory mapping lets a program treat a file on disk as if it were an array in memory. The operating system loads pages on demand, so a large index starts instantly and shares its cache across processes.
+LRU cache	A least recently used cache evicts the entry that has not been touched for the longest time. Search engines cache results of popular queries because a small number of queries make up most of the traffic.
+Boolean retrieval	Boolean retrieval combines terms with AND, OR and NOT. It returns an exact set of matching documents rather than a ranked list, and is often used as the first stage before ranking.
+Tokenization	Tokenization splits raw text into words. Good tokenizers lowercase text, remove punctuation and drop common stop words such as the and of, which carry little meaning for search.
+Zipf's law	Zipf's law says that the frequency of a word is inversely proportional to its rank. A few words appear everywhere while most words are rare, which is why posting lists vary enormously in length.
+Concurrency	Search is read heavy, so many threads can run queries against the same immutable index at once without locks. Only shared structures such as the result cache need synchronization.

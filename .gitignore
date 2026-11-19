@@ -1,0 +1,7 @@
+build/
+*.idx
+/*.tsv
+!data/sample.tsv
+*.o
+.vscode/
+.idea/
